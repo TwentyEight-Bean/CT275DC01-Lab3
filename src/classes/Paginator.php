@@ -1,0 +1,48 @@
+<?php
+namespace CT275\Labs;
+
+class Paginator
+{
+    public int $totalPages;
+    public int $recordOffset;
+
+    public function __construct(
+        public int $totalRecords,
+        public int $recordsPerPage = 5,
+        public int $currentPage = 1
+    ) {
+        $this->totalPages = (int)ceil($totalRecords / $recordsPerPage);
+        if ($this->currentPage < 1) {
+            $this->currentPage = 1;
+        }
+        $this->recordOffset = ($this->currentPage - 1) * $this->recordsPerPage;
+    }
+
+    public function getPrevPage(): int|bool
+    {
+        return $this->currentPage > 1 ? $this->currentPage - 1 : false;
+    }
+
+    public function getNextPage(): int|bool
+    {
+        return $this->currentPage < $this->totalPages ? $this->currentPage + 1 : false;
+    }
+
+    public function getPages(int $length = 3): array
+    {
+        if ($this->totalPages <= 0) return [];
+        $halfLength = (int)floor($length / 2);
+        $pageStart = $this->currentPage - $halfLength;
+        $pageEnd = $this->currentPage + $halfLength;
+
+        if ($pageStart < 1) {
+            $pageStart = 1;
+            $pageEnd = min($length, $this->totalPages);
+        }
+        if ($pageEnd > $this->totalPages) {
+            $pageEnd = $this->totalPages;
+            $pageStart = max(1, $pageEnd - $length + 1);
+        }
+        return range((int)$pageStart, (int)$pageEnd);
+    }
+}

@@ -2,13 +2,11 @@
 
 Học kỳ 3, Năm học: 2025-2026
 
-**Họ tên**: ...
+**Họ tên**: Đỗ Tấn Tài
 
-**MSSV**: ...
+**MSSV**: DC25V7k028
 
-**Lớp HP**: ...
-
-
+**Lớp HP**: CT275
 
 ## Triển khai trên nginx
 
